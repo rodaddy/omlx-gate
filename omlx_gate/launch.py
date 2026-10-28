@@ -11,7 +11,8 @@ oMLX's own CLI untouched.
 
 Every `omlx serve` flag passes through unchanged. Starlette builds the
 middleware stack on first request, so add_middleware after import and
-before main() is the correct ordering (proven by tests/test_launch.py).
+before main() is the correct ordering (proven on a scratch instance at extraction; tests/test_launch.py
+was not carried into this repository).
 """
 
 from __future__ import annotations
