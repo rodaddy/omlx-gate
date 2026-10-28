@@ -374,7 +374,7 @@ async def test_fourth_load_in_a_minute_is_roulette():
         assert (await swap(g, "load")).status == 200
     send = await swap(g, "load")
     assert send.status == 429
-    assert "Trebek" in send.body["error"]["message"]
+    assert "Please slow down." in send.body["error"]["message"]
     assert send.body["error"]["code"] == "swap_rate_exceeded"
 
 
@@ -384,9 +384,9 @@ async def test_unload_is_never_rate_limited():
         assert (await swap(g, "unload")).status == 200
 
 
-async def test_rate_limit_message_carries_the_editorial():
+async def test_rate_limit_message_asks_caller_to_slow_down():
     g = make_gate(ok_app())
     ctx = ctx_for(g)
     for _ in range(ctx.limit):
         ctx.window.append(time.monotonic())
-    assert "Trebek" in g._check_rate(ctx).message
+    assert "Please slow down." in g._check_rate(ctx).message
