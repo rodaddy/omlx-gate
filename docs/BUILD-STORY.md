@@ -4,8 +4,8 @@ Sources: the private development repository's git history (11 commits, all
 on 2026-08-22), the code and tests in this repository, and the comments in
 `pyproject.toml` and the modules. The earlier history of the gate inside the
 oMLX fork is not in this repository; what is said about it below comes from
-the extraction commit message. This public repository is a one-commit
-snapshot.
+the extraction commit message. This public repository started as a one-commit
+snapshot of the code; later commits change documentation only.
 
 ## The problem
 
