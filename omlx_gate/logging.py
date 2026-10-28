@@ -1,4 +1,4 @@
-"""Flow-instrumentation decorator for the gate modules (local Rodaddy patch).
+"""Flow-instrumentation decorator for the gate modules (local patch).
 
 One decorator owns the five-point logging story instead of hand-written call
 sites: entry (DEBUG), exit with duration (DEBUG), failure (ERROR with

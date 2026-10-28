@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Unit tests for the big-model admission gate (local Rodaddy patch).
+"""Unit tests for the big-model admission gate (local patch).
 
 Behavior under test, not internals: classification, the measured-throughput
 limit math, window expiry, admission rejections with their status codes and
