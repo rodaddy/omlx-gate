@@ -115,8 +115,8 @@ USAGE_PATHS = frozenset({"/usage", "/v1/usage"})
 _SWAP_RE = re.compile(r"^/v1/models/(?P<model>[^/]+)/(?P<verb>load|unload)$")
 SWAP_LOADS_PER_MIN = int(_env_num("OMLX_GATE_SWAPS_PER_MIN", "3"))
 
-# House editorial: rate-limit rejections carry the message.
-_TREBEK = " Suck it, Trebek."
+# Rate-limit rejections ask the caller to slow down.
+_SLOW_DOWN = " Please slow down."
 
 # Param counts embedded in model names: "27B", "3.8B", the "3B" inside
 # "A3B". Must NOT match "4bit"/"8bit", so the B cannot be followed by an
@@ -517,7 +517,7 @@ class BigModelGateMiddleware:
             message=(
                 f"Rate limit exceeded for model '{ctx.model}': this server "
                 f"handles about {ctx.limit} requests/minute per client for "
-                f"this model{measured}.{_TREBEK}{self._pace_hint(ctx.model)} "
+                f"this model{measured}.{_SLOW_DOWN}{self._pace_hint(ctx.model)} "
                 "GET /usage for the full policy."
             ),
             log_reason=f"adaptive limit {ctx.limit}/min",
@@ -610,7 +610,7 @@ class BigModelGateMiddleware:
                             f"{len(self._swap_loads) + 1} in the last minute on a"
                             " box where each load costs 6-16 seconds. Pick a"
                             " model and commit, or use the always-on <=4B tier."
-                            f"{_TREBEK} Retry in {retry}s; GET /usage for the"
+                            f"{_SLOW_DOWN} Retry in {retry}s; GET /usage for the"
                             " policy."
                         ),
                         "type": "rate_limit_error",
