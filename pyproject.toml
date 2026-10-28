@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omlx-gate"
+version = "0.1.0"
+description = "Big-model admission control for oMLX, attached as ASGI middleware"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    # oMLX is NOT on PyPI (404, verified 2026-08-22) -- the pin is a git tag.
+    # Extraction was proven against 0.6.0.dev1; this is the
+    # step-5 upgrade. Moving the tag is the whole upgrade procedure: bump it,
+    # re-run the 29 tests, and if anything breaks it breaks in pool.py.
+    "omlx @ git+https://github.com/jundot/omlx.git@v0.6.2",
+    "fastapi",
+]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-asyncio>=0.21.0", "httpx"]
+
+[project.scripts]
+omlx-gate = "omlx_gate.launch:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["omlx_gate*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
