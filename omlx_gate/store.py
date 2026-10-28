@@ -1,4 +1,4 @@
-"""SQLite persistence for the big-model gate (local Rodaddy patch).
+"""SQLite persistence for the big-model gate (local patch).
 
 Two jobs, nothing else:
 

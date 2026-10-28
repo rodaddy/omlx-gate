@@ -1,6 +1,6 @@
 """Big-model admission gate with measured, self-adjusting rate limits.
 
-Local Rodaddy patch (not upstream). This box supplies occasional inference,
+Local patch (not upstream). This box supplies occasional inference,
 not a data center. Small models (<= OMLX_GATE_SMALL_MAX_B params by name)
 pass untouched; anything larger is admission-controlled:
 
@@ -115,7 +115,7 @@ USAGE_PATHS = frozenset({"/usage", "/v1/usage"})
 _SWAP_RE = re.compile(r"^/v1/models/(?P<model>[^/]+)/(?P<verb>load|unload)$")
 SWAP_LOADS_PER_MIN = int(_env_num("OMLX_GATE_SWAPS_PER_MIN", "3"))
 
-# House editorial, per Rico: rate-limit rejections carry the message.
+# House editorial: rate-limit rejections carry the message.
 _TREBEK = " Suck it, Trebek."
 
 # Param counts embedded in model names: "27B", "3.8B", the "3B" inside
@@ -187,7 +187,7 @@ def _check_singleton() -> None:
     """Tripwire: exactly ONE oMLX serves this box, owned by launchd
     (com.example.omlx). A second instance -- typically a hand-run
     `omlx serve` -- steals or shadows the bind (loopback shadowing a
-    wildcard bind broke aqmd twice on this fleet). Scream if another
+    wildcard bind has broken LAN clients before). Scream if another
     server process exists; never start one by hand."""
     import subprocess
 
